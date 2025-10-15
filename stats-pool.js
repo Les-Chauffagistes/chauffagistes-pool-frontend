@@ -196,16 +196,63 @@ try{
 }catch(e){ console.error(e); }
 }
 
+// ===== Deep-link helpers (URL <-> adresse) =====
+const ADDR_PARAM = "addr";
+
+function getAddrFromUrl() {
+  const u = new URL(window.location.href);
+  const a = (u.searchParams.get(ADDR_PARAM) || "").trim();
+  return a;
+}
+
+function setAddrInUrl(addr, {replace=true} = {}) {
+  const u = new URL(window.location.href);
+  if (addr) {
+    u.searchParams.set(ADDR_PARAM, addr);
+  } else {
+    u.searchParams.delete(ADDR_PARAM);
+  }
+  if (replace) history.replaceState({}, "", u.toString());
+  else history.pushState({}, "", u.toString());
+  updateLangLinksWithAddr(addr);
+}
+
+function updateLangLinksWithAddr(addr) {
+  // Conserve l’adresse quand on bascule FR/EN
+  document.querySelectorAll(".lang-switcher a.nav-link").forEach(a => {
+    try {
+      const u = new URL(a.getAttribute("href"), window.location.origin);
+      if (addr) u.searchParams.set(ADDR_PARAM, addr);
+      else u.searchParams.delete(ADDR_PARAM);
+      a.setAttribute("href", u.pathname + u.search);
+    } catch { /* no-op */ }
+  });
+}
+
+// Lors des navigations arrière/avant (bouton du navigateur)
+window.addEventListener("popstate", () => {
+  const fromUrl = getAddrFromUrl();
+  const input = document.getElementById("btcInput");
+  if (input && fromUrl && input.value.trim() !== fromUrl) {
+    input.value = fromUrl;
+    // Relance la recherche sans alerte si l’adresse est présente
+    searchUser(/* silent */ true);
+  } else if (input && !fromUrl) {
+    input.value = "";
+    document.getElementById("userStats").innerHTML = "";
+  }
+});
+
 // ---------- User Search ----------
-async function searchUser(){
-const addr = document.getElementById("btcInput").value.trim();
-if(!addr) return alert("Adresse requise");
+async function searchUser(silent = false){
+  const addr = document.getElementById("btcInput").value.trim();
+  if(!addr){ if(!silent) alert("Adresse requise"); return; }
 
-const hideZero = document.getElementById("hideZero").checked;
-const btn = document.getElementById('btnSearch');
-btn.disabled = true; btn.classList.add("loader");
+  const hideZero = document.getElementById("hideZero").checked;
+  const btn = document.getElementById('btnSearch');
+  btn.disabled = true; btn.classList.add("loader");
 
-try{
+  try{
     const res = await fetch(`${apiBase}/stats/${addr}`);
     if(!res.ok) throw new Error("Introuvable");
     const data = await res.json();
@@ -263,6 +310,8 @@ try{
     </div>
     `;
     document.getElementById("userStats").innerHTML = html;
+    // ➜ met l’adresse dans l’URL (remplace l’état courant)
+    setAddrInUrl(addr, { replace: true });
 }catch(err){
     document.getElementById("userStats").innerHTML = `<p class="text-danger">Address not found</p>`;
 }finally{
@@ -311,8 +360,26 @@ updateHistoryChart(range);
 });
 
 document.getElementById('btnSearch').addEventListener('click', searchUser);
-document.getElementById('btnCopy').addEventListener('click', ()=> copyText(document.getElementById('btcInput').value.trim() ) );
+document.getElementById('btnCopy').addEventListener('click', () => {
+  const addr = document.getElementById('btcInput').value.trim();
+  if (!addr) return;
+  const u = new URL(window.location.href);
+  u.searchParams.set(ADDR_PARAM, addr);
+  navigator.clipboard?.writeText(u.toString());
+});
 
 // initial load
 ensureCharts();
+
+// Hydrate l’input depuis l’URL (si ?addr=…)
+const prefillAddr = getAddrFromUrl();
+if (prefillAddr) {
+  document.getElementById("btcInput").value = prefillAddr;
+  updateLangLinksWithAddr(prefillAddr);
+  // Recherche auto, sans pop-up si vide
+  searchUser(/* silent */ true);
+} else {
+  updateLangLinksWithAddr("");
+}
+
 Promise.all([loadPool(), loadTop(), loadHistory()]).then(startAutoRefresh);

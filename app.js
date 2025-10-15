@@ -266,7 +266,7 @@ function toMillis(epoch) {
 /**
  * Normalise une entrée venant de l'API pour l’historique
  * Entrée possible: { month:"2025-09", sdiff:number, address:"...", epoch:number }
- * Sortie: { month, user, addr, diff, whenMs, prize_sats? }
+ * Sortie: { month, user, addr, diff, whenMs}
  */
 function normalizeMonthlyBestRow(entry) {
   const month = entry?.month || null;
@@ -286,7 +286,6 @@ function normalizeMonthlyBestRow(entry) {
     addr,
     diff,
     whenMs,
-    prize_sats: entry?.prize_sats ?? entry?.prize ?? null,
   };
 }
 
@@ -306,7 +305,7 @@ async function loadMonthlyBestsHistory() {
 
     tbody.innerHTML = "";
     if (!rows.length) {
-      tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">No data</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted">No data</td></tr>`;
       return;
     }
 
@@ -322,7 +321,6 @@ async function loadMonthlyBestsHistory() {
       tdUser.innerHTML = `<strong title="${r.addr || ""}">${main}</strong>`;
 
       const tdDiff = document.createElement("td");
-      tdDiff.className = "text-end";
       tdDiff.innerHTML = `<span class="bestshare__diff">${formatDiffUnits(r.diff)}</span>`;
 
       const tdWhen = document.createElement("td");
@@ -333,11 +331,7 @@ async function loadMonthlyBestsHistory() {
         tdWhen.textContent = "—";
       }
 
-      const tdPrize = document.createElement("td");
-      tdPrize.className = "text-end";
-      tdPrize.textContent = r.prize_sats ? `${Number(r.prize_sats).toLocaleString()} sats` : "—";
-
-      tr.append(tdMonth, tdUser, tdDiff, tdWhen, tdPrize);
+      tr.append(tdMonth, tdUser, tdDiff, tdWhen);
       tbody.appendChild(tr);
     }
   } catch (e) {
