@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chauffagistes – Informations</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="icon" href="logo.jpg" type="image/jpeg"/>
+  <style>
+    :root {
+      --bg:#0d0d0d; --fg:#fff; --muted:#b9b9b9;
+      --orange:#f7931a; --card:#131313; --border:#2a2a2a;
+    }
+    body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    .wrap{max-width:980px;margin:auto;padding:24px;position:relative}
+    .title{color:var(--orange);text-align:center;margin:28px 0 12px}
+    .intro{color:var(--muted);text-align:center;margin-bottom:36px}
+    .card-dark{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:18px}
+    .h2-sec{font-size:1.25rem;font-weight:700;color:var(--orange);margin:0 0 10px}
+    .h3-mode{font-size:1.15rem;font-weight:700;margin:2px 0 8px;display:flex;align-items:center;gap:.5rem}
+    .h3-mode .dot{width:.9rem;height:.9rem;border-radius:999px;background:var(--orange);flex:0 0 .9rem}
+    .subhead{font-weight:700;color:var(--orange);margin:10px 0 6px}
+    .text-muted2{color:var(--muted);line-height:1.6}
+    code{color:#ff79c6}
+    .divider{border-top:1px solid var(--border);margin:16px 0}
+    .sub-sep{border-top:1px dashed var(--border);margin:14px 0}
+    .note{border-left:4px solid var(--orange);background:#181818;border-radius:12px;padding:10px 12px;color:var(--muted);margin:10px 0}
+    ul.clean{margin:0 0 0 18px}
+    footer{ text-align:center; color:var(--muted); margin-top:50px; font-size:.9rem; border-top:1px solid var(--border); padding-top:16px; }
+    footer a{color:var(--orange);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    /* Bandeau top: retour + switcher */
+    .topbar{ display:flex; align-items:center; gap:.75rem; position:absolute; top:20px; right:24px; }
+    .btn-outline-light{ border-color:#5c5c5c; color:#eaeaea; }
+    .btn-outline-light:hover{ background:var(--orange); border-color:var(--orange); color:#111; }
+
+    /* Switcher de langue (reprend le style de la page stats) */
+    .lang-link { display:flex; align-items:center; gap:.5rem; }
+    .lang-switcher{ list-style:none; display:flex; gap:.5rem; margin:0; padding:0; }
+    .lang-switcher .nav-link { padding:.25rem .6rem; border:1px solid var(--border); border-radius:999px; color:#eaeaea; text-decoration:none; }
+    .lang-switcher .nav-link.active { background:var(--orange); color:#111; border-color:var(--orange); }
+    .flag svg{ display:block }
+
+    /* Responsive: placer la barre en haut à gauche sur petits écrans */
+    @media (max-width: 576px){
+      .topbar{ left:24px; right:auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Boutons Accueil + Sélecteur FR/EN -->
+    <div class="topbar" aria-label="Navigation supérieure">
+      <a href="index.html" rel="home" class="btn btn-sm btn-outline-light" aria-label="Retour à l'accueil">← Accueil</a>
+      <ul class="lang-switcher" role="tablist" aria-label="Language switcher">
+        <li class="nav-item d-flex align-items-center" role="presentation">
+          <a class="nav-link lang-link active" href="/about.html" lang="fr" hreflang="fr" aria-label="Français" aria-current="page">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 3 2" width="18" height="12" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1" height="2" x="0" y="0" fill="#0055A4"/>
+                <rect width="1" height="2" x="1" y="0" fill="#fff"/>
+                <rect width="1" height="2" x="2" y="0" fill="#EF4135"/>
+              </svg>
+            </span>
+            FR
+          </a>
+        </li>
+        <li class="nav-item d-flex align-items-center" role="presentation">
+          <a class="nav-link lang-link" href="/en/about.html" lang="en" hreflang="en" aria-label="English">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 30" width="18" height="9" xmlns="http://www.w3.org/2000/svg">
+                <clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
+                <clipPath id="t"><path d="M30,15 h30 v15 z v-30 z h-30 z h-30 z v30 z"/></clipPath>
+                <g clip-path="url(#s)">
+                  <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+                  <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                  <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
+                  <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+                  <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+                </g>
+              </svg>
+            </span>
+            EN
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <h1 class="title">Chauffagistes – Informations</h1>
+    <p class="intro">Modes de minage, fonctionnement des gains et vision du projet. Latence optimisée pour la France grâce à notre hébergement redondé en Île-de-France.</p>
+
+    <!-- INFRA -->
+    <section id="infra" class="card-dark">
+      <div class="h2-sec">Infrastructure</div>
+      <p class="text-muted2">
+        La pool tourne sur un Node hébergé par nos soins en <strong>Île-de-France</strong>, avec
+        une <strong>redondance</strong> sur un autre site géographique local. <br/>
+        <strong>Avantage :</strong> faible latence pour les mineurs hébergés en France.
+      </p>
+    </section>
+
+    <!-- MODES -->
+    <section id="modes" class="card-dark">
+      <div class="h2-sec">Les modes de minage proposés</div>
+
+      <!-- SOLO -->
+      <div class="h3-mode" id="solo"><span class="dot"></span><span>Solo-mining pur</span></div>
+      <div class="subhead">Pour qui</div>
+      <p class="text-muted2">
+        Pour miner seul, sans devoir maintenir un node. Si vous avez déjà votre propre node,
+        ce mode ne vous apportera pas davantage.
+      </p>
+
+      <div class="note"><strong>Conseil souveraineté :</strong> maintenir un node local est rapide, peu coûteux et apporte de vrais avantages. Nous le recommandons.</div>
+
+      <div class="subhead">Connexion</div>
+      <p class="text-muted2">
+        <code>stratum+tcp://chauffagistes-pool.fr:3333</code><br/>
+        AxeOS : <code>URL : chauffagistes-pool.fr</code> – <code>Port : 3333</code><br/>
+        <code>User : [Votre adresse de réception Onchain]</code> — <code>Password : x</code>
+      </p>
+
+      <div class="subhead">Gains</div>
+      <p class="text-muted2">
+        La récompense du bloc tombe directement sur <strong>votre wallet</strong>, sans frais ni transit chez nous.
+      </p>
+
+      <div class="subhead">Avantages</div>
+      <ul class="text-muted2 clean">
+        <li>100% de la reward</li>
+        <li>Pas besoin de maintenir un node</li>
+      </ul>
+
+      <div class="sub-sep"></div>
+
+      <!-- COLLAB PRIVÉ -->
+      <div class="h3-mode" id="prive"><span class="dot"></span><span>Minage privé collaboratif</span></div>
+      <div class="subhead">Pour qui</div>
+      <p class="text-muted2">Pour miner entre amis / communauté, sans exposer un node public, et partager les gains équitablement.</p>
+
+      <div class="subhead">Connexion</div>
+      <p class="text-muted2">
+        <code>stratum+tcp://chauffagistes-pool.fr:3333</code><br/>
+        <code>User : [Votre adresse Onchain].[identifiant]</code> — <code>Password : x</code><br/>
+        Exemple : <code>bc1qkt...ae.Satoshi</code><br/>
+        <em>(Ces identifiants sont publics si un bloc est trouvé.)</em>
+      </p>
+
+      <div class="subhead">Gains & répartition (optionnelle)</div>
+      <p class="text-muted2">
+        La récompense tombe sur le wallet indiqué en <strong>User</strong>.<br/>
+        Répartition proposée : <code>[Somme diff. de vos shares] / [Somme diff. du groupe]</code>
+        → pourcentage de participation effective sur la période.
+      </p>
+
+      <div class="subhead">Avantages</div>
+      <ul class="text-muted2 clean">
+        <li>100% de la reward, à partager comme vous voulez</li>
+        <li>Aucune gestion de node</li>
+        <li>Calcul clair des parts de travail</li>
+      </ul>
+
+      <div class="sub-sep"></div>
+
+      <!-- POOL -->
+      <div class="h3-mode" id="pool"><span class="dot"></span><span>Minage en Pool</span></div>
+      <div class="subhead">Pour qui</div>
+      <p class="text-muted2">Pour maximiser les chances de trouver un bloc en mutualisant la puissance.</p>
+
+      <div class="subhead">Connexion</div>
+      <p class="text-muted2">
+        <code>stratum+tcp://chauffagistes-pool.fr:3333</code><br/>
+        <code>User : [Adresse multi-signature de la Pool].[identifiant]</code> — <code>Password : x</code><br/>
+        <em>(Identifiants visibles si un bloc est trouvé.)</em>
+      </p>
+
+      <div class="subhead">Gains & sécurité</div>
+      <p class="text-muted2">
+        Les récompenses vont sur un <strong>wallet multi-signature</strong> détenu par plusieurs membres.
+        Personne ne peut agir seul. Répartition calculée en temps réel :<br/>
+        <code>[Somme diff. des shares d’un utilisateur] / [Somme diff. totale du groupe]</code>
+      </p>
+
+      <div class="subhead">Avantages</div>
+      <ul class="text-muted2 clean">
+        <li>Chances bien plus élevées de trouver un bloc</li>
+        <li>Répartition juste basée sur le travail effectif (PoW)</li>
+        <li>Évite de décourager les petits mineurs</li>
+      </ul>
+    </section>
+
+    <!-- A PROPOS -->
+    <section id="about" class="card-dark">
+      <div class="h2-sec">À propos</div>
+      <p class="text-muted2">
+        Né d’un groupe qui découvre Bitcoin plus sérieusement depuis 2024, avec l’idée de
+        <strong>se chauffer en minant</strong> et de garder une transparence maximale sur la
+        <strong>répartition des récompenses</strong>. Nous utilisons la base open-source
+        <a href="#">ckpool</a> et avons ouvert nos travaux à la communauté depuis l’été 2025.
+      </p>
+      <div class="divider"></div>
+      <p class="text-muted2">
+        Aucun frais prélevé : nous vivons des dons et de nos propres mineurs dans la pool.
+        Nous pensons que des <strong>petits dispositifs de minage domestiques</strong> auront
+        leur place dans chaque foyer — d’où la nécessité d’outils simples, justes et
+        transparents. <br/><br/><strong>Partager, construire, apprendre.</strong>
+      </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      © 2025 Chauffagistes Pool – Made with ❤️ en France — 
+      <a href="mentions-legales.html">Mentions légales</a>
+    </footer>
+
+  </main>
+</body>
+</html>
