@@ -59,6 +59,15 @@
           <span id="stBackup"  class="status-item" title="Backup Stratum">
             <span class="led"></span><span class="label">Backup</span><span class="state">–</span>
           </span>
+          <!-- Icône “?” affichée seulement si backup=UP & primary=DOWN -->
+          <span
+            id="backupOnlyHint"
+            class="text-warning d-none"
+            aria-live="polite"
+            style="cursor: help;"
+          >
+            <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+          </span>
         </div>
 
         <div class="collapse navbar-collapse justify-content-end text-center" id="navbarNav">

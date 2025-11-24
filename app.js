@@ -478,6 +478,34 @@ function setHeaderStatus(elId, host){
   el.setAttribute('aria-label', `${baseTitle} ${isOnline?'UP':'DOWN'}, latence ${lat}`);
 }
 
+function updateBackupWarning(primaryHost, backupHost) {
+  const hint = document.getElementById("backupOnlyHint");
+  if (!hint) return;
+
+  const isPrimaryOnline = !!primaryHost?.online;
+  const isBackupOnline  = !!backupHost?.online;
+  const isBackupOnly    = isBackupOnline && !isPrimaryOnline;
+
+  if (!isBackupOnly) {
+    hint.classList.add("d-none");
+    hint.removeAttribute("title");
+    hint.removeAttribute("aria-label");
+    return;
+  }
+
+  const lang = (document.documentElement.getAttribute("lang") || "fr").toLowerCase();
+
+  const msgFr = "La pool tourne actuellement sur le serveur de backup. Certaines statistiques peuvent être incomplètes ou indisponibles.";
+  const msgEn = "The pool is currently running on the backup server. Some statistics may be incomplete or unavailable.";
+
+  const text = lang.startsWith("fr") ? msgFr : msgEn;
+
+  hint.classList.remove("d-none");
+  hint.title = text;
+  hint.setAttribute("aria-label", text);
+}
+
+
 function updateHeaderStatusFromPings(data){
   const byKey = {};
   (data?.hosts||[]).forEach(h=>{
@@ -485,10 +513,18 @@ function updateHeaderStatusFromPings(data){
     let k = s.includes('proxy')?'proxy':s.includes('primary')?'primary':s.includes('backup')?'backup':s;
     byKey[k]=h;
   });
+
+  const primary = byKey.primary || null;
+  const backup  = byKey.backup  || null;
+
   setHeaderStatus('stProxy',   byKey.proxy   || null);
-  setHeaderStatus('stPrimary', byKey.primary || null);
-  setHeaderStatus('stBackup',  byKey.backup  || null);
+  setHeaderStatus('stPrimary', primary);
+  setHeaderStatus('stBackup',  backup);
+
+  // 👉 Ici on met à jour le point d'interrogation “backup only”
+  updateBackupWarning(primary, backup);
 }
+
 
 async function loadHeaderPings(){
   try{

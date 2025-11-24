@@ -91,15 +91,51 @@
     <h1 class="title">Chauffagistes – Informations</h1>
     <p class="intro">Modes de minage, fonctionnement des gains et vision du projet. Latence optimisée pour la France grâce à notre hébergement redondé en Île-de-France.</p>
 
-    <!-- INFRA -->
     <section id="infra" class="card-dark">
       <div class="h2-sec">Infrastructure</div>
       <p class="text-muted2">
-        La pool tourne sur un Node hébergé par nos soins en <strong>Île-de-France</strong>, avec
-        une <strong>redondance</strong> sur un autre site géographique local. <br/>
-        <strong>Avantage :</strong> faible latence pour les mineurs hébergés en France.
+        Notre architecture repose entièrement sur la stack open-source 
+        <a href="https://bitbucket.org/ckolivas/workspace/projects/CKPOOL" target="_blank" rel="noopener">ckpool</a>,
+        reconnue pour sa stabilité et sa faible latence.
+      </p>
+
+      <p class="text-muted2">
+        Pour garantir une connexion fiable en France, nous utilisons un 
+        <strong>proxy Stratum (ckproxy)</strong> hébergé chez <strong>OVH en Île-de-France</strong>.
+        Ce proxy gère automatiquement la bascule vers l’un de nos deux serveurs ckpool
+        physiquement séparés.
+      </p>
+
+      <div class="subhead">Mode actif → passif</div>
+      <p class="text-muted2">
+        Le proxy fonctionne en <strong>actif/passif</strong> :  
+        tant que la pool primaire répond, tout le trafic passe dessus.  
+        En cas d’incident, un failover immédiat bascule les mineurs vers la pool secondaire.
+      </p>
+
+      <div class="subhead">Pool primaire</div>
+      <p class="text-muted2">
+        Hébergée sur un <strong>cluster Proxmox haute disponibilité</strong> (HA), elle repose
+        sur deux nœuds Bitcoin Core 28.1 :  
+        un nœud public + un nœud de backup interne.  
+        C’est notre environnement principal, pensé pour assurer un uptime maximal.
+      </p>
+
+      <div class="subhead">Pool de secours</div>
+      <p class="text-muted2">
+        Hébergée elle aussi sur Proxmox mais <strong>sans HA</strong>, avec un nœud Bitcoin Core 
+        conteneurisé.  
+        Nous considérons actuellement ce système comme un <strong>mode dégradé</strong>, utilisé
+        uniquement si la pool primaire n’est pas disponible.
+      </p>
+
+      <p class="text-muted2">
+        Notre objectif : <strong>améliorer continuellement</strong> notre stack pour proposer une
+        disponibilité toujours plus élevée, une latence très faible et la meilleure expérience de
+        minage en France.
       </p>
     </section>
+
 
     <!-- MODES -->
     <section id="modes" class="card-dark">
@@ -172,7 +208,7 @@
       <div class="subhead">Connexion</div>
       <p class="text-muted2">
         <code>stratum+tcp://chauffagistes-pool.fr:3333</code><br/>
-        <code>User : [Adresse multi-signature de la Pool].[identifiant]</code> — <code>Password : x</code><br/>
+        <code>User : bc1qqp9zq4an6nyzhcspz2xfmkcf8rj0p6w94a5gyeu2a7rghxjhnqqsvymz5m.[identifiant]</code> — <code>Password : x</code><br/>
         <em>(Identifiants visibles si un bloc est trouvé.)</em>
       </p>
 

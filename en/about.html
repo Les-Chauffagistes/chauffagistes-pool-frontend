@@ -85,15 +85,50 @@
     <h1 class="title">Chauffagistes – Information</h1>
     <p class="intro">Mining modes, how rewards work, and the project vision. Latency is optimised for France thanks to our redundant hosting in Île-de-France.</p>
 
-    <!-- INFRA -->
     <section id="infra" class="card-dark">
       <div class="h2-sec">Infrastructure</div>
+
       <p class="text-muted2">
-        The pool runs on a node hosted by us in <strong>Île-de-France</strong>, with
-        <strong>redundancy</strong> on another local site. <br/>
-        <strong>Advantage:</strong> low latency for miners located in France.
+        Our pool is built on the open-source 
+        <a href="https://bitbucket.org/ckolivas/workspace/projects/CKPOOL" target="_blank" rel="noopener">ckpool</a>
+        stack, known for its efficiency and low latency.
+      </p>
+
+      <p class="text-muted2">
+        To ensure a reliable connection for miners in France, we use a
+        <strong>Stratum proxy (ckproxy)</strong> hosted at OVH in <strong>Île-de-France</strong>.
+        The proxy automatically routes miners to one of our two physically separated ckpool servers.
+      </p>
+
+      <div class="subhead">Active → passive failover</div>
+      <p class="text-muted2">
+        The proxy operates in <strong>active/passive mode</strong>:  
+        all miners are connected to the primary pool as long as it is healthy.  
+        If it becomes unavailable, ckproxy instantly switches to the backup pool.
+      </p>
+
+      <div class="subhead">Primary pool</div>
+      <p class="text-muted2">
+        The primary ckpool instance runs on a <strong>high-availability Proxmox cluster</strong>.
+        It is powered by two Bitcoin Core 28.1 nodes:
+        one public node and one internal backup node.
+        This is our main production environment, designed for maximum uptime.
+      </p>
+
+      <div class="subhead">Backup pool</div>
+      <p class="text-muted2">
+        The backup ckpool runs on another Proxmox server (non-HA) with a
+        <strong>containerised Bitcoin Core node</strong>.
+        At the moment, this setup is considered a <strong>degraded mode</strong>
+        and is used only if the primary pool becomes unavailable.
+      </p>
+
+      <p class="text-muted2">
+        Our goal is to <strong>continuously improve</strong> this architecture to offer even
+        higher availability, lower latency, and the most reliable mining experience in France.
       </p>
     </section>
+
 
     <!-- MODES -->
     <section id="modes" class="card-dark">
@@ -168,7 +203,7 @@
       <div class="subhead">Connection</div>
       <p class="text-muted2">
         <code>stratum+tcp://chauffagistes-pool.fr:3333</code><br/>
-        <code>User: [Pool’s multi-sig address].[yourID]</code> — <code>Password: x</code><br/>
+        <code>User: bc1qqp9zq4an6nyzhcspz2xfmkcf8rj0p6w94a5gyeu2a7rghxjhnqqsvymz5m.[yourID]</code> — <code>Password: x</code><br/>
         <em>(Identifiers are visible if a block is found.)</em>
       </p>
 
