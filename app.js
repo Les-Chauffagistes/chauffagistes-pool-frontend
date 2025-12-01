@@ -1,7 +1,3 @@
-// ====== Config API ======
-const API = "https://chauffagistes-pool.fr:3000/api";
-const PINGS_API = `${API}/pings`;
-
 // ====== Utils ======
 const fmt = {
   compact(n){
@@ -436,7 +432,7 @@ function renderNetwork(data){
 }
 async function loadPingsOnce(){
   try{
-    const r = await fetch(PINGS_API);
+    const r = await fetch(`${API}/pings`);
     const data = await r.json();
     renderPingCounters(data);
     renderNetwork(data);
@@ -448,7 +444,7 @@ function startTopoRefresh(){
   if(topoTimer) return;
   topoTimer = setInterval(async ()=> {
     try{
-      const r = await fetch(PINGS_API);
+      const r = await fetch(`${API}/pings`);
       const data = await r.json();
       renderPingCounters(data);
       renderNetwork(data);
@@ -528,7 +524,7 @@ function updateHeaderStatusFromPings(data){
 
 async function loadHeaderPings(){
   try{
-    const r = await fetch(PINGS_API);
+    const r = await fetch(`${API}/pings`);
     const data = await r.json();
     updateHeaderStatusFromPings(data);
   }catch(e){

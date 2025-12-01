@@ -1,5 +1,3 @@
-const apiBase = "https://chauffagistes-pool.fr:3000/api";
-
 // ---------- Utils ----------
 const fmt = {
 number(n){ if(n===undefined||n===null||isNaN(n)) return "–";
@@ -74,7 +72,7 @@ if(!chartHashrate){
 // ---------- Fetchers ----------
 async function loadPool(){
 try{
-    const res = await fetch(`${apiBase}/pool`);
+    const res = await fetch(`${API}/pool`);
     const data = await res.json();
 
     // Runtime / counts
@@ -135,7 +133,7 @@ return parseHashrateToUnit(hps);
 
 async function loadTop(){
 try{
-    const res = await fetch(`${apiBase}/top`);
+    const res = await fetch(`${API}/top`);
     const data = await res.json();
 
     // Top Hashrate
@@ -187,7 +185,7 @@ document.querySelectorAll('.btn-range').forEach(b=>{
 
 async function loadHistory(){
 try{
-    const res = await fetch(`${apiBase}/hashrate`);
+    const res = await fetch(`${API}/hashrate`);
     const data = await res.json();
     // on conserve brut puis on applique le range courant
     chartHashrateRaw = Array.isArray(data) ? data : [];
@@ -253,7 +251,7 @@ async function searchUser(silent = false){
   btn.disabled = true; btn.classList.add("loader");
 
   try{
-    const res = await fetch(`${apiBase}/stats/${addr}`);
+    const res = await fetch(`${API}/stats/${addr}`);
     if(!res.ok) throw new Error("Introuvable");
     const data = await res.json();
 
