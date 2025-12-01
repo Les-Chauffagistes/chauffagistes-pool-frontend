@@ -112,12 +112,9 @@
               <a href="about.html" class="link-warning ms-1">Learn more →</a>
             </p>
             <div class="statusbar mt-2">
-              <span class="pill" id="pillUpdated">Updated: –</span>
               <span class="pill">Users <strong id="pillUsers">–</strong></span>
               <span class="pill">Workers <strong id="pillWorkers">–</strong></span>
-              <span class="pill good">Accepted <strong id="pillAccepted">–</strong></span>
-              <span class="pill bad">Rejected <strong id="pillRejected">–</strong></span>
-              <span class="pill" id="pillRejectRate">Reject rate: –</span>
+              <span class="pill">Heated area <strong id="pillHeatedArea">–</strong> m²</span>
             </div>
 
             <div class="d-grid-cta mt-3">
@@ -141,25 +138,38 @@
             <p class="mb-0 small muted">Offered by our partners — win by submitting the best share of the month.</p>
           </div>
 
-          <div class="d-flex flex-wrap justify-content-center align-items-start gap-4 w-100">
+          <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
 
+          <!-- December -->
+          <div class="promo-item text-center text-lg-start">
+            <div class="pill glow me-0 mb-1">December</div>
 
-            <!-- December -->
-            <div class="promo-item text-center">
-              <div class="pill glow me-0 mb-1">December</div>
-
-              <div class="fw-semibold">
-                <span class="text-warning">Bitaxe Gamma</span> from <a class="text-decoration-underline" href="https://silexperience.company.site/" target="_blank" rel="noopener">Silexperience</a>
-              </div>
-
-              <div class="fw-semibold">
-                + Pale Ale Beer pack from 
-                <a class="text-decoration-underline" href="https://drink-bob.com/beers" target="_blank" rel="noopener">drink-bob.com</a>
-              </div>
+            <div class="fw-semibold">
+              <span class="text-warning">Bitaxe Gamma</span> offered by
+              <a class="text-decoration-underline" href="https://silexperience.company.site/" target="_blank" rel="noopener">Silexperience</a>
             </div>
 
+            <div class="fw-semibold">
+              + Pale Ale beer pack offered by
+              <a class="text-decoration-underline" href="https://drink-bob.com/beers" target="_blank" rel="noopener">drink-bob.com</a>
+            </div>
           </div>
 
+          <span class="d-none d-lg-inline muted">•</span>
+
+          <!-- January -->
+          <div class="promo-item text-center text-lg-start">
+            <div class="pill glow me-0 mb-1">January</div>
+
+            <div class="fw-semibold">
+              IPA beer pack offered by
+              <a class="text-decoration-underline" href="https://drink-bob.com/beers" target="_blank" rel="noopener">drink-bob.com</a>
+            </div>
+          </div>
+
+        </div>
+
+          
         </div>
       </section>
       <!-- ===== /PROMOS ===== -->
@@ -313,10 +323,6 @@
             <div class="value" id="kpiHr1h">–</div>
           </div>
           <div class="card-dark p-3 kpi">
-            <div class="label">Hashrate (1d)</div>
-            <div class="value" id="kpiHr1d">–</div>
-          </div>
-          <div class="card-dark p-3 kpi">
             <div class="label">SPS (1h)</div>
             <div class="value" id="kpiSps1h">–</div>
           </div>
@@ -324,19 +330,37 @@
             <div class="label">Best share</div>
             <div class="value" id="kpiBestShare">–</div>
           </div>
-          <div class="card-dark p-3 kpi" title="Hauteur de la blockchain vue par le nœud">
+
+          <!-- NEW: same 3 KPIs as FR -->
+          <div class="card-dark p-3 kpi" title="Total number of accepted shares over the recent period">
+            <div class="label">Accepted shares</div>
+            <div class="value" id="pillAccepted">–</div>
+          </div>
+
+          <div class="card-dark p-3 kpi" title="Total number of rejected shares over the recent period">
+            <div class="label">Rejected shares</div>
+            <div class="value" id="pillRejected">–</div>
+          </div>
+
+          <div class="card-dark p-3 kpi" title="Share reject rate">
+            <div class="label">Reject rate</div>
+            <div class="value" id="pillRejectRate">–</div>
+          </div>
+          <!-- /NEW -->
+
+          <div class="card-dark p-3 kpi" title="Blockchain height as seen by the node">
             <div class="label">Height</div>
             <div class="value" id="nodeHeight" aria-live="polite">–</div>
           </div>
-          <div class="card-dark p-3 kpi" title="Version logicielle (subversion)">
+          <div class="card-dark p-3 kpi" title="Software version (subversion)">
             <div class="label">Version</div>
             <div class="value" id="nodeVersion" aria-live="polite">–</div>
           </div>
-          <div class="card-dark p-3 kpi" title="Pairs connectés (in/out)">
+          <div class="card-dark p-3 kpi" title="Connected peers (in/out)">
             <div class="label">Peers</div>
             <div class="value" id="nodePeers" aria-live="polite">–</div>
           </div>
-          <div class="card-dark p-3 kpi" title="Dernière mise à jour des données du nœud">
+          <div class="card-dark p-3 kpi" title="Last node data refresh">
             <div class="label">Last update</div>
             <div class="value" id="nodeUpdated" aria-live="polite"></div>
           </div>
@@ -543,7 +567,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- App JS -->
-     <script src="../config.js"></script>
+    <script src="../config.js"></script>
     <script src="../app.js"></script>
 
     <!-- JSON-LD Organization (SEO) -->

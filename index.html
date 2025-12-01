@@ -118,12 +118,9 @@
               <a href="about.html" class="link-warning ms-1">En savoir plus →</a>
             </p>
             <div class="statusbar mt-2">
-              <span class="pill" id="pillUpdated">Maj: –</span>
               <span class="pill">Utilisateurs <strong id="pillUsers">–</strong></span>
               <span class="pill">Workers <strong id="pillWorkers">–</strong></span>
-              <span class="pill good">Acceptés <strong id="pillAccepted">–</strong></span>
-              <span class="pill bad">Rejetés <strong id="pillRejected">–</strong></span>
-              <span class="pill" id="pillRejectRate">Rejet: –</span>
+              <span class="pill">m² chauffés <strong id="pillHeatedArea">–</strong></span>
             </div>
 
             <div class="d-grid-cta mt-3">
@@ -146,11 +143,11 @@
             <p class="mb-0 small muted">Offertes par nos partenaires — gagnez en soumettant le meilleur share du mois.</p>
           </div>
 
-          <div class="d-flex flex-wrap justify-content-center align-items-start gap-4 w-100">
-
+          <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
+            
             <!-- Décembre -->
-            <div class="promo-item text-center">
-              <div class="pill glow mb-1">Décembre</div>
+            <div class="promo-item text-center text-lg-start">
+              <div class="pill glow me-0 mb-1">Décembre</div>
 
               <div class="fw-semibold">
                 <span class="text-warning">Bitaxe Gamma</span> offert par 
@@ -163,8 +160,19 @@
               </div>
             </div>
 
-          </div>
+            <span class="d-none d-lg-inline muted">•</span>
 
+            <!-- Janvier -->
+            <div class="promo-item text-center text-lg-start">
+              <div class="pill glow me-0 mb-1">Janvier</div>
+
+              <div class="fw-semibold">
+                Pack de bières IPA offert par 
+                <a class="text-decoration-underline" href="https://drink-bob.com/beers" target="_blank" rel="noopener">drink-bob.com</a>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
       <!-- ===== /RÉCOMPENSES ===== -->
@@ -318,16 +326,26 @@
             <div class="value" id="kpiHr1h">–</div>
           </div>
           <div class="card-dark p-3 kpi">
-            <div class="label">Hashrate (1j)</div>
-            <div class="value" id="kpiHr1d">–</div>
-          </div>
-          <div class="card-dark p-3 kpi">
             <div class="label">SPS (1h)</div>
             <div class="value" id="kpiSps1h">–</div>
           </div>
           <div class="card-dark p-3 kpi">
             <div class="label">Best share</div>
             <div class="value" id="kpiBestShare">–</div>
+          </div>
+          <div class="card-dark p-3 kpi" title="Nombre total de shares acceptés sur la période récente">
+            <div class="label">Shares acceptés</div>
+            <div class="value" id="pillAccepted">–</div>
+          </div>
+
+          <div class="card-dark p-3 kpi" title="Nombre total de shares rejetés sur la période récente">
+            <div class="label">Shares rejetés</div>
+            <div class="value" id="pillRejected">–</div>
+          </div>
+
+          <div class="card-dark p-3 kpi" title="Taux de rejet des shares">
+            <div class="label">Taux de rejet</div>
+            <div class="value" id="pillRejectRate">–</div>
           </div>
           <div class="card-dark p-3 kpi" title="Hauteur de la blockchain vue par le nœud">
             <div class="label">Hauteur</div>
@@ -552,7 +570,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- App JS -->
-    <script src="config.js"></script>
+     <script src="config.js"></script>
     <script src="app.js"></script>
 
     <!-- JSON-LD Organization (SEO) -->

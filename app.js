@@ -95,6 +95,22 @@ function updateHistoryChart(range){
   });
 }
 
+// Estimation de la surface chauffée à partir du hashrate (en H/s)
+function estimateHeatedAreaFromHashrate(hps) {
+  if (!hps || !isFinite(Number(hps))) return null;
+
+  const HPS = Number(hps);
+  const THS = HPS / 1e12; // conversion H/s -> TH/s
+
+  const W_PER_TH = 50;   // 30 W par TH/s (ex: 1 PH/s = 30 kW)
+  const M2_PER_KW = 15;  // 1 kW chauffe ~10 m² (ordre de grandeur)
+
+  const powerKW = (THS * W_PER_TH) / 1000; // kW
+  const m2 = powerKW * M2_PER_KW;          // m² chauffés estimés
+
+  return m2;
+}
+
 // ====== Fetch Pool status ======
 async function loadPool(){
   try{
@@ -129,6 +145,20 @@ async function loadPool(){
     set("kpiHr1d", fmt.hashrate(hr.hashrate1d ?? "–"));
     set("kpiSps1h", sh.SPS1h ?? "–");
     set("kpiBestShare", fmt.compact(sh.bestshare||0));
+
+    // >>> ICI : calcul m² chauffés pour le hero
+    const hrForHeat = parseHashrate(hr.hashrate1d ?? hr.hashrate1hr ?? 0); // -> H/s
+    const heatedArea = estimateHeatedAreaFromHashrate(hrForHeat);
+
+    const elHeated = document.getElementById("pillHeatedArea");
+    if (elHeated) {
+      if (heatedArea && isFinite(heatedArea)) {
+        elHeated.textContent = Math.round(heatedArea).toLocaleString("fr-FR");
+      } else {
+        elHeated.textContent = "–";
+      }
+    }
+
   }catch(e){
     console.error("Erreur pool:", e);
   }
