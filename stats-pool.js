@@ -108,9 +108,6 @@ try{
 
     document.getElementById('sharesAccepted').textContent = fmt.compact(acc);
     document.getElementById('sharesRejected').textContent = fmt.compact(rej);
-    document.getElementById('rejectRate').innerHTML = (rejRate < 0.02)
-        ? `<span class="pill good">${fmt.percent(rejRate)}</span>`
-        : `<span class="pill bad">${fmt.percent(rejRate)}</span>`;
     document.getElementById('bestShare').textContent = fmt.bestShare(data.shares?.bestshare);
     document.getElementById('diff').textContent = data.shares?.diff ?? "–";
 

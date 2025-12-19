@@ -1,0 +1,156 @@
+/* ===== BEF – EVENT DASHBOARD THEME ===== */
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background:
+    radial-gradient(1200px 600px at top, #1c1208, #0b0b0b 60%),
+    #0b0b0b;
+  color: #eaeaea;
+}
+
+.bef-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* HEADER */
+.bef-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.bef-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.bef-logos img {
+  height: 64px;
+  filter: drop-shadow(0 0 14px rgba(247,147,26,0.35));
+}
+
+.bef-x {
+  font-size: 1.5rem;
+  color: #f7931a;
+}
+
+.bef-tags {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.bef-tags span {
+  border: 1px solid #f7931a55;
+  color: #f7931a;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+/* KPIs */
+.bef-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.bef-kpi {
+  background: linear-gradient(145deg, #1a1208, #0f0f0f);
+  border: 1px solid #f7931a22;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+}
+
+.bef-kpi .label {
+  font-size: 0.7rem;
+  color: #aaa;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.bef-kpi .value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #f7931a;
+}
+
+.bef-kpi.highlight {
+  box-shadow: 0 0 28px rgba(247,147,26,0.25);
+}
+
+/* WORKERS */
+.bef-workers h2 {
+  font-size: 0.9rem;
+  color: #f7931a;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.bef-workers table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.bef-workers th {
+  padding: 8px;
+  font-size: 0.7rem;
+  color: #aaa;
+  text-transform: uppercase;
+  border-bottom: 1px solid #333;
+}
+
+.bef-workers td {
+  padding: 8px;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.bef-workers tr:hover {
+  background: rgba(247,147,26,0.06);
+}
+
+.center {
+  text-align: center;
+}
+
+.muted {
+  color: #777;
+}
+
+/* FOOTER */
+.bef-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.bef-footer img {
+  height: 28px;
+  opacity: 0.85;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .bef-logos img {
+    height: 48px;
+  }
+
+  .bef-kpi .value {
+    font-size: 1.25rem;
+  }
+}

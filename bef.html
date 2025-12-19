@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chauffagistes × Bitcoin Economic Forum</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="description"
+        content="Mining live du Bitcoin Economic Forum sur la pool Chauffagistes – statistiques en temps réel." />
+
+  <link rel="icon" href="logo.jpg" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="bef.css" />
+
+  <style>
+    /* Petit style pour headers triables + flèches */
+    .bef-sortable { cursor: pointer; user-select: none; }
+    .bef-sortable .sort-ind { opacity:.6; margin-left:.35rem; font-size:.85em; }
+    .bef-sortable.active { color: #f7931a; }
+    .bef-sortable.active .sort-ind { opacity: 1; }
+  </style>
+</head>
+
+<body>
+
+<main class="bef-container">
+
+  <!-- Bouton retour -->
+  <a href="index.html" class="bef-back" aria-label="Retour à la page principale">
+    ← Retour
+  </a>
+
+  <!-- HEADER -->
+  <header class="bef-header">
+    <div class="bef-logos">
+      <img src="logo.jpg" alt="Chauffagistes" />
+      <span class="bef-x">×</span>
+      <img src="bef.png" alt="Bitcoin Economic Forum" />
+    </div>
+
+    <div class="bef-tags">
+      <span>Bitcoin only</span>
+      <span>0% fees</span>
+      <span>No Shitcoin Inside</span>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <section class="bef-kpis">
+    <div class="bef-kpi">
+      <div class="label">Hashrate (1h)</div>
+      <div class="value" id="befHr">–</div>
+    </div>
+
+    <div class="bef-kpi">
+      <div class="label">Workers</div>
+      <div class="value" id="befWorkers">–</div>
+    </div>
+
+    <div class="bef-kpi">
+      <div class="label">Shares</div>
+      <div class="value" id="befShares">–</div>
+    </div>
+
+    <div class="bef-kpi highlight">
+      <div class="label">Best share</div>
+      <div class="value" id="befBest">–</div>
+    </div>
+  </section>
+
+  <!-- WORKERS -->
+  <section class="bef-workers">
+    <h2>Workers actifs</h2>
+
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th class="bef-sortable" data-col="worker">Worker <span class="sort-ind" aria-hidden="true">↕</span></th>
+            <th class="bef-sortable" data-col="hr1h">Hashrate 1h <span class="sort-ind" aria-hidden="true">↕</span></th>
+            <th class="bef-sortable" data-col="shares">Shares <span class="sort-ind" aria-hidden="true">↕</span></th>
+            <th class="bef-sortable" data-col="best">Best <span class="sort-ind" aria-hidden="true">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="befWorkersTable">
+          <tr>
+            <td colspan="4" class="center muted">Chargement…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bef-footer">
+    <img src="nsi.png" alt="No Shitcoin Inside" />
+    <span>Mining live on Chauffagistes Pool</span>
+  </footer>
+
+</main>
+
+<script>
+const API = "https://chauffagistes-pool.fr:3000/api";
+const ADDR = "bc1qhj2qnsw9f9wwkpru4rvkccxe5k2k80t8s7wd0md5h5tu5ew8ag2qlfamel";
+
+/** Format compact (K/M/G/T/P) */
+function fmtCompact(n) {
+  if (n === undefined || n === null || Number.isNaN(Number(n))) return "–";
+  const units = ["", "K", "M", "G", "T", "P", "E"];
+  let i = 0;
+  let v = Number(n);
+  while (v >= 1000 && i < units.length - 1) { v /= 1000; i++; }
+  return `${v.toFixed(2).replace(".", ",")}${units[i]}`;
+}
+
+/** Parse "12.34 TH/s", "800 GH/s", etc -> H/s (number) */
+function parseHashrateToHps(str) {
+  if (typeof str !== "string") return 0;
+  const s = str.trim().replace(",", ".");
+  const m = s.match(/^([\d.]+)\s*([kKmMgGtTpPeE])?h\/s$/i) || s.match(/^([\d.]+)\s*([kKmMgGtTpPeE])?$/i);
+  if (!m) return 0;
+  const num = parseFloat(m[1]);
+  const unit = (m[2] || "").toUpperCase();
+  const map = { "": 1, "K": 1e3, "M": 1e6, "G": 1e9, "T": 1e12, "P": 1e15, "E": 1e18 };
+  return (Number.isFinite(num) ? num : 0) * (map[unit] || 1);
+}
+
+/** Parse compact text like "1,23K" or "2.5M" -> number */
+function parseCompact(str) {
+  if (str === undefined || str === null) return 0;
+  if (typeof str === "number") return str;
+  const s = String(str).trim().replace(/\s+/g, "").replace(",", ".");
+  const m = s.match(/^([\d.]+)([kKmMgGtTpPeE])?$/);
+  if (!m) return 0;
+  const num = parseFloat(m[1]);
+  const unit = (m[2] || "").toUpperCase();
+  const map = { "": 1, "K": 1e3, "M": 1e6, "G": 1e9, "T": 1e12, "P": 1e15, "E": 1e18 };
+  return (Number.isFinite(num) ? num : 0) * (map[unit] || 1);
+}
+
+/** Escape HTML */
+function esc(s){ return (s ?? "").toString().replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m])); }
+
+/** State */
+let workersRaw = [];
+let sortState = { col: "hr1h", dir: "desc" }; // tri par défaut
+
+function getWorkerName(w) {
+  const full = (w.workername || "");
+  const last = full.includes(".") ? full.split(".").pop() : full;
+  return last || full || "—";
+}
+
+/** Render table from workersRaw with current sort */
+function renderWorkers() {
+  const tbody = document.getElementById("befWorkersTable");
+  if (!workersRaw?.length) {
+    tbody.innerHTML = `<tr><td colspan="4" class="center muted">Aucun worker actif</td></tr>`;
+    return;
+  }
+
+  const col = sortState.col;
+  const dirMul = sortState.dir === "asc" ? 1 : -1;
+
+  const sorted = [...workersRaw].sort((a, b) => {
+    if (col === "worker") {
+      const na = getWorkerName(a).toLowerCase();
+      const nb = getWorkerName(b).toLowerCase();
+      return na.localeCompare(nb, "fr") * dirMul;
+    }
+    if (col === "hr1h") {
+      const va = parseHashrateToHps(a.hashrate1hr || "");
+      const vb = parseHashrateToHps(b.hashrate1hr || "");
+      return (va - vb) * dirMul;
+    }
+    if (col === "shares") {
+      const va = Number(a.shares) || 0;
+      const vb = Number(b.shares) || 0;
+      return (va - vb) * dirMul;
+    }
+    if (col === "best") {
+      const va = Number(a.bestshare) || 0;
+      const vb = Number(b.bestshare) || 0;
+      return (va - vb) * dirMul;
+    }
+    return 0;
+  });
+
+  tbody.innerHTML = sorted.map(w => `
+    <tr>
+      <td>${esc(getWorkerName(w))}</td>
+      <td>${esc(w.hashrate1hr || "–")}</td>
+      <td>${esc(fmtCompact(w.shares))}</td>
+      <td>${esc(fmtCompact(w.bestshare))}</td>
+    </tr>
+  `).join("");
+}
+
+/** Update header arrows */
+function updateSortIndicators() {
+  document.querySelectorAll(".bef-sortable").forEach(th => {
+    const ind = th.querySelector(".sort-ind");
+    th.classList.toggle("active", th.dataset.col === sortState.col);
+    if (!ind) return;
+    if (th.dataset.col !== sortState.col) {
+      ind.textContent = "↕";
+    } else {
+      ind.textContent = (sortState.dir === "asc") ? "▲" : "▼";
+    }
+  });
+}
+
+/** Bind sorting */
+document.addEventListener("click", (e) => {
+  const th = e.target.closest(".bef-sortable");
+  if (!th) return;
+
+  const col = th.dataset.col;
+  if (sortState.col === col) {
+    sortState.dir = (sortState.dir === "asc") ? "desc" : "asc";
+  } else {
+    sortState.col = col;
+    sortState.dir = (col === "worker") ? "asc" : "desc";
+  }
+  updateSortIndicators();
+  renderWorkers();
+});
+
+/** Load data */
+async function loadBefStats() {
+  try {
+    const res = await fetch(`${API}/stats/${ADDR}`);
+    const data = await res.json();
+
+    document.getElementById("befHr").textContent =
+      data.globalStats?.hashrate1hr || "–";
+
+    document.getElementById("befWorkers").textContent =
+      fmtCompact(data.globalStats?.workers);
+
+    document.getElementById("befShares").textContent =
+      fmtCompact(data.globalStats?.shares);
+
+    document.getElementById("befBest").textContent =
+      fmtCompact(data.globalStats?.bestshare);
+
+    workersRaw = Array.isArray(data.workers) ? data.workers : [];
+    updateSortIndicators();
+    renderWorkers();
+
+  } catch (e) {
+    console.error("BEF stats error", e);
+  }
+}
+
+updateSortIndicators();
+loadBefStats();
+setInterval(loadBefStats, 30000);
+</script>
+
+</body>
+</html>
