@@ -6,12 +6,18 @@
     <title>Chauffage & Bitcoin – Pool de minage communautaire française</title>
 
     <!-- SEO -->
-    <meta name="description" content="Participez au minage Bitcoin en France avec notre pool communautaire. On valorise la chaleur du minage pour le chauffage. 0% de frais." />
+    <meta
+      name="description"
+      content="Participez au minage Bitcoin en France avec notre pool communautaire. On valorise la chaleur du minage pour le chauffage. 0% de frais."
+    />
     <link rel="canonical" href="https://chauffagistes-pool.fr/" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:title" content="Chauffagistes – Pool Bitcoin FR (0% fees)" />
-    <meta property="og:description" content="Pool communautaire française. Minage Bitcoin + valorisation de chaleur pour le chauffage. Rejoignez-nous !" />
+    <meta
+      property="og:description"
+      content="Pool communautaire française. Minage Bitcoin + valorisation de chaleur pour le chauffage. Rejoignez-nous !"
+    />
     <meta property="og:image" content="https://chauffagistes-pool.fr/logo.jpg" />
     <meta property="og:url" content="https://chauffagistes-pool.fr" />
     <meta property="og:type" content="website" />
@@ -23,16 +29,199 @@
     <link rel="alternate" hreflang="en" href="https://chauffagistes-pool.fr/en/" />
     <link rel="alternate" hreflang="x-default" href="https://chauffagistes-pool.fr/" />
 
-
     <!-- Vendor CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="app.css?v=20251219">
+    <link rel="stylesheet" href="app.css?v=20251219" />
+
+    <!-- 🎄 Noël: neige + décos (inline, sans assets externes) -->
+    <style>
+      /* Couches background */
+      #embers {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.28; /* garde un léger "embers" mais discret */
+      }
+      #snow {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; /* au-dessus du fond */
+        pointer-events: none;
+      }
+
+      /* Tout ton contenu au-dessus */
+      body > nav.navbar,
+      body > main,
+      body > footer {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Décorations fixes */
+      .xmas-deco {
+        position: fixed;
+        pointer-events: none;
+        z-index: 2; /* au même niveau que le contenu, mais sans clic */
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35));
+        opacity: 0.95;
+      }
+      .xmas-deco svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Positions */
+      .deco-trees-left {
+        left: 18px;
+        bottom: 10px;
+        width: 210px;
+        max-width: 40vw;
+      }
+      .deco-snowman-right {
+        right: 18px;
+        bottom: 12px;
+        width: 170px;
+        max-width: 34vw;
+      }
+      .deco-tree-mid {
+        right: 22px;
+        top: 120px;
+        width: 110px;
+        opacity: 0.85;
+      }
+
+      /* Sur mobiles: on réduit un peu */
+      @media (max-width: 576px) {
+        .deco-tree-mid {
+          display: none;
+        }
+        .deco-trees-left {
+          width: 165px;
+          left: 10px;
+        }
+        .deco-snowman-right {
+          width: 140px;
+          right: 10px;
+        }
+      }
+    </style>
   </head>
+
   <body>
+    <!-- Fond existant -->
     <canvas id="embers" aria-hidden="true"></canvas>
+
+    <!-- ❄️ Neige qui tombe (canvas) -->
+    <canvas id="snow" aria-hidden="true"></canvas>
+
+    <!-- 🎄 Décos Noël -->
+    <!-- Sapins en bas à gauche -->
+    <div class="xmas-deco deco-trees-left" aria-hidden="true">
+      <svg viewBox="0 0 260 170" xmlns="http://www.w3.org/2000/svg" role="img">
+        <!-- sol neige -->
+        <path d="M0 155 C50 135, 110 165, 170 150 C210 140, 235 145, 260 152 L260 170 L0 170 Z" fill="#EAF6FF" opacity="0.95"/>
+        <path d="M10 158 C70 142, 120 168, 175 154 C210 145, 232 148, 250 154" fill="none" stroke="#CFEAFF" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+
+        <!-- arbre 1 -->
+        <g transform="translate(22,10)">
+          <rect x="47" y="120" width="18" height="28" rx="4" fill="#6B4B2A"/>
+          <path d="M56 18 L84 60 H68 L96 98 H74 L106 128 H6 L38 98 H20 L48 60 H30 Z" fill="#1E7B4A"/>
+          <path d="M56 18 L84 60 H68 L96 98 H74 L106 128 H6 L38 98 H20 L48 60 H30 Z" fill="none" stroke="#0E5A33" stroke-width="3" opacity="0.55"/>
+          <!-- guirlande -->
+          <path d="M28 75 C45 85, 60 85, 82 76" fill="none" stroke="#F7C948" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="30" cy="74" r="4" fill="#FF4D6D"/>
+          <circle cx="46" cy="82" r="4" fill="#4DA3FF"/>
+          <circle cx="62" cy="82" r="4" fill="#7CFF4D"/>
+          <circle cx="80" cy="76" r="4" fill="#FFB84D"/>
+          <!-- étoile -->
+          <path d="M56 8 L60 18 L71 19 L62 26 L65 36 L56 30 L47 36 L50 26 L41 19 L52 18 Z" fill="#FFD166"/>
+        </g>
+
+        <!-- arbre 2 -->
+        <g transform="translate(140,24) scale(0.85)">
+          <rect x="47" y="120" width="18" height="28" rx="4" fill="#6B4B2A"/>
+          <path d="M56 18 L84 60 H68 L96 98 H74 L106 128 H6 L38 98 H20 L48 60 H30 Z" fill="#217A55"/>
+          <path d="M56 18 L84 60 H68 L96 98 H74 L106 128 H6 L38 98 H20 L48 60 H30 Z" fill="none" stroke="#0E5A33" stroke-width="3" opacity="0.5"/>
+          <path d="M26 92 C44 100, 62 100, 86 90" fill="none" stroke="#F7C948" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="28" cy="92" r="4" fill="#FF4D6D"/>
+          <circle cx="46" cy="99" r="4" fill="#4DA3FF"/>
+          <circle cx="64" cy="99" r="4" fill="#7CFF4D"/>
+          <circle cx="84" cy="90" r="4" fill="#FFB84D"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Bonhomme de neige en bas à droite -->
+    <div class="xmas-deco deco-snowman-right" aria-hidden="true">
+      <svg viewBox="0 0 200 190" xmlns="http://www.w3.org/2000/svg" role="img">
+        <!-- sol -->
+        <path d="M0 170 C40 150, 110 190, 200 165 L200 190 L0 190 Z" fill="#EAF6FF" opacity="0.95"/>
+        <path d="M14 172 C58 158, 118 182, 186 167" fill="none" stroke="#CFEAFF" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+
+        <!-- corps -->
+        <circle cx="100" cy="120" r="48" fill="#F8FBFF" stroke="#DCEEFF" stroke-width="4"/>
+        <circle cx="100" cy="55" r="33" fill="#F8FBFF" stroke="#DCEEFF" stroke-width="4"/>
+
+        <!-- yeux -->
+        <circle cx="88" cy="50" r="4.2" fill="#222"/>
+        <circle cx="112" cy="50" r="4.2" fill="#222"/>
+
+        <!-- nez carotte -->
+        <path d="M100 58 L138 66 L100 72 Z" fill="#FF8A00" stroke="#E57400" stroke-width="2"/>
+
+        <!-- sourire -->
+        <path d="M86 68 C95 78, 105 78, 114 68" fill="none" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- boutons -->
+        <circle cx="100" cy="108" r="4.5" fill="#2B2B2B"/>
+        <circle cx="100" cy="124" r="4.5" fill="#2B2B2B"/>
+        <circle cx="100" cy="140" r="4.5" fill="#2B2B2B"/>
+
+        <!-- écharpe -->
+        <path d="M73 78 C90 92, 110 92, 127 78 L127 90 C110 103, 90 103, 73 90 Z" fill="#E42535"/>
+        <path d="M118 86 L150 110" stroke="#E42535" stroke-width="14" stroke-linecap="round"/>
+        <path d="M118 86 L150 110" stroke="#B81D2B" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+
+        <!-- bras -->
+        <path d="M58 120 C35 105, 20 100, 10 92" stroke="#6B4B2A" stroke-width="6" stroke-linecap="round"/>
+        <path d="M142 120 C165 105, 180 100, 190 92" stroke="#6B4B2A" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- chapeau -->
+        <rect x="72" y="12" width="56" height="14" rx="4" fill="#1A1A1A"/>
+        <rect x="80" y="0" width="40" height="18" rx="5" fill="#1A1A1A"/>
+        <rect x="86" y="8" width="28" height="6" rx="3" fill="#E42535"/>
+      </svg>
+    </div>
+
+    <!-- Petit sapin “perché” à droite -->
+    <div class="xmas-deco deco-tree-mid" aria-hidden="true">
+      <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg" role="img">
+        <path d="M60 6 L84 44 H70 L92 76 H76 L104 112 H16 L44 76 H28 L50 44 H36 Z" fill="#1F7A4B"/>
+        <path d="M60 6 L84 44 H70 L92 76 H76 L104 112 H16 L44 76 H28 L50 44 H36 Z" fill="none" stroke="#0E5A33" stroke-width="3" opacity="0.55"/>
+        <rect x="52" y="112" width="16" height="24" rx="4" fill="#6B4B2A"/>
+        <path d="M30 66 C42 74, 55 74, 74 66" fill="none" stroke="#F7C948" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="32" cy="66" r="4" fill="#FF4D6D"/>
+        <circle cx="46" cy="73" r="4" fill="#4DA3FF"/>
+        <circle cx="60" cy="73" r="4" fill="#7CFF4D"/>
+        <circle cx="72" cy="66" r="4" fill="#FFB84D"/>
+        <path d="M60 0 L64 10 L75 11 L66 18 L69 28 L60 22 L51 28 L54 18 L45 11 L56 10 Z" fill="#FFD166"/>
+      </svg>
+    </div>
 
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -41,31 +230,34 @@
           <img src="logo.jpg" alt="Logo Chauffagistes" />
           <div class="d-flex flex-column align-items-start ms-2">
             <strong>Chauffagistes</strong>
-            <small id="hashrateHeader" class="text-warning" style="font-size:.7rem">Hashrate : –</small>
+            <small id="hashrateHeader" class="text-warning" style="font-size: 0.7rem"
+              >Hashrate : –</small
+            >
           </div>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Ouvrir le menu">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-label="Ouvrir le menu"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="status-leds flex-wrap justify-content-center justify-content-lg-end my-2 my-lg-0 me-lg-3">
-          <span id="stProxy"   class="status-item" title="Proxy">
+          <span id="stProxy" class="status-item" title="Proxy">
             <span class="led"></span><span class="label">Proxy</span><span class="state">–</span>
           </span>
           <span id="stPrimary" class="status-item" title="Primary Stratum">
             <span class="led"></span><span class="label">Primary</span><span class="state">–</span>
           </span>
-          <span id="stBackup"  class="status-item" title="Backup Stratum">
+          <span id="stBackup" class="status-item" title="Backup Stratum">
             <span class="led"></span><span class="label">Backup</span><span class="state">–</span>
           </span>
           <!-- Icône “?” affichée seulement si backup=UP & primary=DOWN -->
-          <span
-            id="backupOnlyHint"
-            class="text-warning d-none"
-            aria-live="polite"
-            style="cursor: help;"
-          >
+          <span id="backupOnlyHint" class="text-warning d-none" aria-live="polite" style="cursor: help">
             <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
           </span>
         </div>
@@ -86,14 +278,19 @@
                 <!-- Drapeau GB -->
                 <span class="flag" aria-hidden="true">
                   <svg viewBox="0 0 60 30" width="18" height="9" xmlns="http://www.w3.org/2000/svg">
-                    <clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
-                    <clipPath id="t"><path d="M30,15 h30 v15 z v-30 z h-30 z h-30 z v30 z"/></clipPath>
+                    <clipPath id="s"><path d="M0,0 v30 h60 v-30 z" /></clipPath>
+                    <clipPath id="t"><path d="M30,15 h30 v15 z v-30 z h-30 z h-30 z v30 z" /></clipPath>
                     <g clip-path="url(#s)">
-                      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
-                      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
-                      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/>
-                      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
-                      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+                      <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+                      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6" />
+                      <path
+                        d="M0,0 L60,30 M60,0 L0,30"
+                        clip-path="url(#t)"
+                        stroke="#C8102E"
+                        stroke-width="4"
+                      />
+                      <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10" />
+                      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6" />
                     </g>
                   </svg>
                 </span>
@@ -101,7 +298,6 @@
               </a>
             </li>
           </ul>
-
         </div>
       </div>
     </nav>
@@ -137,65 +333,66 @@
 
       <!-- ===== POOL SPÉCIALE BEF ===== -->
       <section class="card-dark p-4 mb-3 bef-banner-special">
-        <a href="bef.html"
+        <a
+          href="bef.html"
           class="bef-banner-link text-decoration-none"
-          aria-label="Accéder à la pool spéciale Bitcoin Economic Forum">
-
+          aria-label="Accéder à la pool spéciale Bitcoin Economic Forum"
+        >
           <div class="bef-banner-row">
-
             <!-- Texte gauche -->
-            <div class="bef-banner-left">
-              Nous hébergeons
-            </div>
+            <div class="bef-banner-left">Nous hébergeons</div>
 
             <!-- Logo -->
-            <img src="bef.png"
-                alt="Bitcoin Economic Forum"
-                class="bef-banner-logo" />
+            <img src="bef.png" alt="Bitcoin Economic Forum" class="bef-banner-logo" />
 
             <!-- Texte principal -->
             <div class="bef-banner-text">
-              <div class="bef-banner-title">
-                BEF PLEB SPECIAL "SAVAGE" SPACE
-              </div>
-              <div class="bef-banner-sub">
-                Bitcoin Economic Forum
-              </div>
+              <div class="bef-banner-title">BEF PLEB SPECIAL "SAVAGE" SPACE</div>
+              <div class="bef-banner-sub">Bitcoin Economic Forum</div>
             </div>
 
             <!-- CTA -->
-            <div class="bef-banner-cta">
-              Voir les stats →
-            </div>
-
+            <div class="bef-banner-cta">Voir les stats →</div>
           </div>
         </a>
       </section>
       <!-- ===== /POOL SPÉCIALE BEF ===== -->
-
 
       <!-- ===== RÉCOMPENSES SPÉCIALES “BEST SHARE” (NOV & DÉC) ===== -->
       <section class="promo-banner card-dark p-3 mb-3" aria-label="Récompenses spéciales Best Share">
         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
           <div class="text-center text-md-start">
             <h2 class="h5 text-warning m-0">🎁 Récompenses spéciales “Best Share”</h2>
-            <p class="mb-0 small muted">Offertes par nos partenaires — gagnez en soumettant le meilleur share du mois.</p>
+            <p class="mb-0 small muted">
+              Offertes par nos partenaires — gagnez en soumettant le meilleur share du mois.
+            </p>
           </div>
 
           <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
-            
             <!-- Décembre -->
             <div class="promo-item text-center text-lg-start">
               <div class="pill glow me-0 mb-1">Décembre</div>
 
               <div class="fw-semibold">
-                <span class="text-warning">Bitaxe Gamma</span> offert par 
-                <a class="text-decoration-underline" href="https://silexperience.company.site/" target="_blank" rel="noopener">Silexperience</a>
+                <span class="text-warning">Bitaxe Gamma</span> offert par
+                <a
+                  class="text-decoration-underline"
+                  href="https://silexperience.company.site/"
+                  target="_blank"
+                  rel="noopener"
+                  >Silexperience</a
+                >
               </div>
 
               <div class="fw-semibold">
-                + Pack de bières Pale Ale offert par 
-                <a class="text-decoration-underline" href="https://drink-bob.com/beers" target="_blank" rel="noopener">drink-bob.com</a>
+                + Pack de bières Pale Ale offert par
+                <a
+                  class="text-decoration-underline"
+                  href="https://drink-bob.com/beers"
+                  target="_blank"
+                  rel="noopener"
+                  >drink-bob.com</a
+                >
               </div>
             </div>
 
@@ -206,17 +403,20 @@
               <div class="pill glow me-0 mb-1">Janvier</div>
 
               <div class="fw-semibold">
-                Pack de bières IPA offert par 
-                <a class="text-decoration-underline" href="https://drink-bob.com/beers" target="_blank" rel="noopener">drink-bob.com</a>
+                Pack de bières IPA offert par
+                <a
+                  class="text-decoration-underline"
+                  href="https://drink-bob.com/beers"
+                  target="_blank"
+                  rel="noopener"
+                  >drink-bob.com</a
+                >
               </div>
             </div>
-
           </div>
         </div>
       </section>
       <!-- ===== /RÉCOMPENSES ===== -->
-
-
 
       <!-- ====== MEILLEUR SHARE DU MOIS – RÉCOMPENSE ====== -->
       <section id="monthlyBestSection" class="card-dark bestshare" aria-labelledby="bestShareTitle">
@@ -231,10 +431,22 @@
 
               <div class="d-flex align-items-center gap-2">
                 <!-- Actions: aide + historique -->
-                <button class="icon-btn" type="button" data-bs-toggle="modal" data-bs-target="#bestshareHelpModal" aria-label="Explication du prix">
+                <button
+                  class="icon-btn"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#bestshareHelpModal"
+                  aria-label="Explication du prix"
+                >
                   <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
                 </button>
-                <button class="icon-btn" type="button" data-bs-toggle="modal" data-bs-target="#bestshareHistoryModal" aria-label="Meilleurs shares des mois précédents">
+                <button
+                  class="icon-btn"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#bestshareHistoryModal"
+                  aria-label="Meilleurs shares des mois précédents"
+                >
                   <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
                 </button>
 
@@ -266,9 +478,7 @@
 
             <!-- Texte financement -->
             <div class="bestshare__foot">
-              <p class="mb-1">
-                Ce prix est financé <strong>à 100% par les dons de la communauté</strong>.
-              </p>
+              <p class="mb-1">Ce prix est financé <strong>à 100% par les dons de la communauté</strong>.</p>
               <p class="mb-0">
                 Pour que cette récompense continue — et tenter de la gagner — vos dons sont les bienvenus sur la
                 <a href="https://chauffagistes-pool.fr/#don" id="donationLink">cagnotte</a>.
@@ -282,10 +492,23 @@
               <div class="qr-card__head">
                 <h3 id="bestShareCtaTitle" class="h6 m-0 text-warning">Cagnotte Lightning</h3>
               </div>
-              <img id="donationQr" src="../qr.jpg" alt="QR code cagnotte Lightning" width="180" height="180" decoding="async" />
+              <img
+                id="donationQr"
+                src="../qr.jpg"
+                alt="QR code cagnotte Lightning"
+                width="180"
+                height="180"
+                decoding="async"
+              />
               <div class="qr-card__addr">
                 <code id="donationLnurl" class="small" hidden>chauffagistes@walletofsatoshi.com</code>
-                <button class="btn btn-sm btn-outline-light" onclick="copyText(document.getElementById('donationLnurl').innerText)" aria-label="Copier l’adresse">Copier</button>
+                <button
+                  class="btn btn-sm btn-outline-light"
+                  onclick="copyText(document.getElementById('donationLnurl').innerText)"
+                  aria-label="Copier l’adresse"
+                >
+                  Copier
+                </button>
               </div>
             </div>
           </aside>
@@ -305,14 +528,10 @@
                 Le montant affiché en sats correspond au <strong>paiement manuel</strong> envoyé à l’adresse qui a soumis
                 le meilleur share pendant le mois. Ce mini-jeu est financé par <strong>les dons de la communauté</strong>.
               </p>
-              <p>
-                Les gains sont <strong>définis en fonction des fonds disponibles</strong> et peuvent varier d’un mois à l’autre.
-              </p>
+              <p>Les gains sont <strong>définis en fonction des fonds disponibles</strong> et peuvent varier d’un mois à l’autre.</p>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-warning" href="https://chauffagistes-pool.fr/#don">
-                Donner pour la cagnotte
-              </a>
+              <a class="btn btn-warning" href="https://chauffagistes-pool.fr/#don">Donner pour la cagnotte</a>
               <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fermer</button>
             </div>
           </div>
@@ -320,7 +539,13 @@
       </div>
 
       <!-- ===== Modal: Historique ===== -->
-      <div class="modal fade" id="bestshareHistoryModal" tabindex="-1" aria-labelledby="bestshareHistoryTitle" aria-hidden="true">
+      <div
+        class="modal fade"
+        id="bestshareHistoryModal"
+        tabindex="-1"
+        aria-labelledby="bestshareHistoryTitle"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
           <div class="modal-content card-dark border-0">
             <div class="modal-header">
@@ -333,10 +558,10 @@
                 <table class="table table-dark table-striped table-borderless align-middle">
                   <thead>
                     <tr>
-                      <th style="min-width:120px;">Mois</th>
+                      <th style="min-width: 120px">Mois</th>
                       <th>Utilisateur / Adresse</th>
-                      <th style="min-width:140px;">Meilleure diff</th>
-                      <th style="min-width:160px;">Quand</th>
+                      <th style="min-width: 140px">Meilleure diff</th>
+                      <th style="min-width: 160px">Quand</th>
                     </tr>
                   </thead>
                   <tbody id="bestshareHistoryBody">
@@ -352,9 +577,6 @@
           </div>
         </div>
       </div>
-
-
-
 
       <!-- BLOC STATS RAPIDES -->
       <section class="section">
@@ -380,7 +602,7 @@
           <div class="card-dark p-3 kpi" title="Nombre total de shares rejetés sur la période récente">
             <div class="label">Shares rejetés</div>
             <div class="value" id="pillRejected">–</div>
-          </div>    
+          </div>
           <div class="card-dark p-3 kpi" title="Hauteur de la blockchain vue par le nœud">
             <div class="label">Hauteur</div>
             <div class="value" id="nodeHeight" aria-live="polite">–</div>
@@ -399,7 +621,6 @@
           </div>
         </div>
 
-
         <div class="row g-3 mt-3">
           <div class="col-12">
             <div class="card-dark p-3">
@@ -409,9 +630,13 @@
                 <div class="d-flex align-items-center gap-2 flex-wrap">
                   <div class="btn-group me-1" role="group" aria-label="Plage historique">
                     <button type="button" class="btn btn-sm btn-outline-light btn-range" data-range="7d">Semaine</button>
-                    <button type="button" class="btn btn-sm btn-outline-light btn-range active" data-range="30d">Mois</button>
+                    <button type="button" class="btn btn-sm btn-outline-light btn-range active" data-range="30d">
+                      Mois
+                    </button>
                     <button type="button" class="btn btn-sm btn-outline-light btn-range" data-range="365d">Année</button>
-                    <button type="button" class="btn btn-sm btn-outline-light btn-range" data-range="all">All time</button>
+                    <button type="button" class="btn btn-sm btn-outline-light btn-range" data-range="all">
+                      All time
+                    </button>
                   </div>
 
                   <button
@@ -422,14 +647,15 @@
                     data-bs-target="#topologyCollapse"
                     aria-expanded="false"
                     aria-controls="topologyCollapse"
-                    title="Afficher/masquer la topologie">
+                    title="Afficher/masquer la topologie"
+                  >
                     Topologie
                     <span class="chevron" aria-hidden="true">▾</span>
                   </button>
                 </div>
               </h5>
 
-              <canvas id="hashrateChart" style="max-height:300px" aria-label="Historique hashrate"></canvas>
+              <canvas id="hashrateChart" style="max-height: 300px" aria-label="Historique hashrate"></canvas>
               <div class="muted small mt-1 text-center text-md-start">Unité : TH/s (moyennes journalières)</div>
 
               <div id="topologyCollapse" class="collapse">
@@ -441,13 +667,20 @@
                   </div>
 
                   <div class="net-wrap d-flex justify-content-center">
-                    <svg id="netSvg" viewBox="0 0 700 260" role="img" aria-label="Schéma réseau de la pool" style="transform: translateX(-70px);"></svg>
+                    <svg
+                      id="netSvg"
+                      viewBox="0 0 700 260"
+                      role="img"
+                      aria-label="Schéma réseau de la pool"
+                      style="transform: translateX(-70px)"
+                    ></svg>
                   </div>
 
                   <div class="muted small mt-2 text-center">
-                    Les liens sont verts si les deux nœuds sont en ligne. Latences en millisecondes (live).<br>
-                    Pings effectués avec l'outil 
-                    <a href="https://github.com/2miners/stratum-ping" target="_blank" rel="noopener">stratum-ping</a>, depuis le proxy situé à Roubaix (OVH).
+                    Les liens sont verts si les deux nœuds sont en ligne. Latences en millisecondes (live).<br />
+                    Pings effectués avec l'outil
+                    <a href="https://github.com/2miners/stratum-ping" target="_blank" rel="noopener">stratum-ping</a>,
+                    depuis le proxy situé à Roubaix (OVH).
                   </div>
                 </div>
               </div>
@@ -464,14 +697,16 @@
             <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
           </a>
         </h3>
-        <ol class="text-start mx-auto" style="max-width:920px">
+        <ol class="text-start mx-auto" style="max-width: 920px">
           <li class="mb-2">
             Configurez votre mineur (ou proxy stratum) :
             <div class="card-dark p-3 mt-2">
               <div class="mb-1">URL stratum :</div>
               <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center justify-content-md-start">
                 <code id="confUrl">stratum+tcp://chauffagistes-pool.fr:3333</code>
-                <button class="btn btn-sm btn-outline-warning" onclick="copyText(document.getElementById('confUrl').innerText)">Copier</button>
+                <button class="btn btn-sm btn-outline-warning" onclick="copyText(document.getElementById('confUrl').innerText)">
+                  Copier
+                </button>
               </div>
               <div class="mt-3 mb-1">Identifiant (user/pass) :</div>
               <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center justify-content-md-start">
@@ -481,15 +716,11 @@
               </div>
             </div>
           </li>
-          <li class="mb-2">
-            Vérifiez votre adresse sur la page <a href="public-stats.html">Statistiques</a> (recherche utilisateur).
-          </li>
-          <li>
-            Besoin d’aide ? Rejoignez le <a href="#discord">Discord</a>.
-          </li>
+          <li class="mb-2">Vérifiez votre adresse sur la page <a href="public-stats.html">Statistiques</a> (recherche utilisateur).</li>
+          <li>Besoin d’aide ? Rejoignez le <a href="#discord">Discord</a>.</li>
         </ol>
 
-        <div class="d-grid-cta mt-3 mx-auto" style="max-width:420px">
+        <div class="d-grid-cta mt-3 mx-auto" style="max-width: 420px">
           <a href="public-stats.html" class="btn btn-outline-warning w-100">📈 Ouvrir les Statistiques publiques</a>
         </div>
       </section>
@@ -503,8 +734,10 @@
           </a>
         </h3>
         <p class="text-center">Section privée avec minage mutualisé et dashboard (accès via Discord, sous conditions).</p>
-        <div class="d-grid-cta mx-auto" style="max-width:420px">
-          <a href="https://swakraft.hopto.org/chauffagistes" class="btn btn-warning w-100" target="_blank" rel="noopener">Accéder au dashboard privé</a>
+        <div class="d-grid-cta mx-auto" style="max-width: 420px">
+          <a href="https://swakraft.hopto.org/chauffagistes" class="btn btn-warning w-100" target="_blank" rel="noopener"
+            >Accéder au dashboard privé</a
+          >
         </div>
       </section>
 
@@ -520,9 +753,13 @@
               </p>
               <ul class="mb-2">
                 <li>Catalogue orienté mining & intégrations chauffage</li>
-                <li>Avantage communauté : <strong>-5%</strong> avec le code promo <code>CHAUFFAGISTES</code></li>
+                <li>
+                  Avantage communauté : <strong>-5%</strong> avec le code promo <code>CHAUFFAGISTES</code>
+                </li>
               </ul>
-              <a class="btn btn-outline-warning" href="https://silexperience.company.site/" target="_blank" rel="noopener">🛒 Visiter Silexperience</a>
+              <a class="btn btn-outline-warning" href="https://silexperience.company.site/" target="_blank" rel="noopener"
+                >🛒 Visiter Silexperience</a
+              >
             </div>
             <div class="col-md-4 text-center">
               <img src="logo.jpg" alt="Chauffagistes" class="responsive-logo" />
@@ -542,7 +779,9 @@
               <h5 class="text-warning text-center text-md-start">Bitcoin (on-chain)</h5>
               <div class="d-flex gap-2 align-items-center flex-wrap justify-content-center justify-content-md-start">
                 <code id="addrBTC">bc1qkt3n2yzu0kxlm72hhhx9vnxge8zhr5k2q4zc6l</code>
-                <button class="btn btn-sm btn-outline-warning" onclick="copyText(document.getElementById('addrBTC').innerText)">Copier</button>
+                <button class="btn btn-sm btn-outline-warning" onclick="copyText(document.getElementById('addrBTC').innerText)">
+                  Copier
+                </button>
               </div>
             </div>
           </div>
@@ -551,7 +790,9 @@
               <h5 class="text-warning text-center text-md-start">Lightning</h5>
               <div class="d-flex gap-2 align-items-center flex-wrap justify-content-center justify-content-md-start">
                 <code id="addrLN">chauffagistes@walletofsatoshi.com</code>
-                <button class="btn btn-sm btn-outline-warning" onclick="copyText(document.getElementById('addrLN').innerText)">Copier</button>
+                <button class="btn btn-sm btn-outline-warning" onclick="copyText(document.getElementById('addrLN').innerText)">
+                  Copier
+                </button>
               </div>
             </div>
           </div>
@@ -563,7 +804,8 @@
         <h3 class="section-title text-center">Minage & Chauffage : une synergie</h3>
         <p class="text-center text-md-start">
           Le nom “Chauffagistes” n’est pas anodin : en réutilisant la chaleur produite par le minage <strong>Bitcoin</strong>,
-          on peut chauffer des locaux (domestiques ou collectifs) tout en sécurisant le réseau. Plusieurs membres testent déjà des intégrations en France.
+          on peut chauffer des locaux (domestiques ou collectifs) tout en sécurisant le réseau. Plusieurs membres testent déjà des
+          intégrations en France.
         </p>
       </section>
 
@@ -571,8 +813,10 @@
       <section id="discord" class="section">
         <h3 class="section-title text-center">Communauté</h3>
         <p class="text-center">Le meilleur moyen d’échanger et contribuer au projet est notre serveur Discord.</p>
-        <div class="d-grid-cta mx-auto" style="max-width:420px">
-          <a class="btn btn-primary w-100" href="https://discord.gg/5s9xfbZPBR" target="_blank" rel="noopener">Rejoindre le Discord</a>
+        <div class="d-grid-cta mx-auto" style="max-width: 420px">
+          <a class="btn btn-primary w-100" href="https://discord.gg/5s9xfbZPBR" target="_blank" rel="noopener"
+            >Rejoindre le Discord</a
+          >
         </div>
       </section>
     </main>
@@ -585,7 +829,13 @@
         <a href="https://x.com/Chauff_pool" target="_blank" rel="noopener" aria-label="X (Twitter)" class="me-2">
           <i class="fab fa-x-twitter"></i>
         </a>
-        <a href="https://bitbucket.org/ckolivas/workspace/projects/CKPOOL" target="_blank" rel="noopener" aria-label="ckpool (Bitbucket)" class="me-2">
+        <a
+          href="https://bitbucket.org/ckolivas/workspace/projects/CKPOOL"
+          target="_blank"
+          rel="noopener"
+          aria-label="ckpool (Bitbucket)"
+          class="me-2"
+        >
           <i class="fab fa-bitbucket"></i>
         </a>
         <a href="https://github.com/Les-Chauffagistes" target="_blank" rel="noopener" aria-label="GitHub" class="me-2">
@@ -593,30 +843,124 @@
         </a>
       </div>
       <div class="muted">
-        © 2025 Chauffagistes Pool – Made with ❤️ en France — 
+        © 2025 Chauffagistes Pool – Made with ❤️ en France —
         <a href="/mentions-legales.html" class="text-decoration-none">Mentions légales</a>
       </div>
     </footer>
-
 
     <!-- Vendor JS (Bootstrap + Chart.js) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- App JS -->
-     <script src="config.js"></script>
+    <script src="config.js"></script>
     <script src="app.js?v=20251219"></script>
+
+    <!-- ❄️ JS Neige (léger, responsive, respect du perf) -->
+    <script>
+      (function () {
+        const canvas = document.getElementById("snow");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d", { alpha: true });
+
+        let w = 0,
+          h = 0,
+          dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        let flakes = [];
+        let running = true;
+
+        function resize() {
+          w = Math.floor(window.innerWidth);
+          h = Math.floor(window.innerHeight);
+          dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+          canvas.width = Math.floor(w * dpr);
+          canvas.height = Math.floor(h * dpr);
+          canvas.style.width = w + "px";
+          canvas.style.height = h + "px";
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+          // densité adaptative (limite pour perf)
+          const target = Math.min(220, Math.max(80, Math.floor((w * h) / 18000)));
+          if (flakes.length > target) flakes.length = target;
+          while (flakes.length < target) flakes.push(makeFlake(true));
+        }
+
+        function rand(min, max) {
+          return Math.random() * (max - min) + min;
+        }
+
+        function makeFlake(spawnTop) {
+          const r = rand(0.8, 3.2);
+          return {
+            x: rand(0, w),
+            y: spawnTop ? rand(-h, 0) : rand(0, h),
+            r,
+            vx: rand(-0.35, 0.35),
+            vy: rand(0.6, 1.8) + r * 0.15,
+            a: rand(0.35, 0.9),
+            drift: rand(0, Math.PI * 2),
+          };
+        }
+
+        function step() {
+          if (!running) return;
+
+          ctx.clearRect(0, 0, w, h);
+
+          // Flocons
+          for (let i = 0; i < flakes.length; i++) {
+            const f = flakes[i];
+            f.drift += 0.01;
+            f.x += f.vx + Math.sin(f.drift) * 0.18;
+            f.y += f.vy;
+
+            // recycle
+            if (f.y - f.r > h + 10) {
+              flakes[i] = makeFlake(true);
+              flakes[i].y = -10;
+              continue;
+            }
+            if (f.x < -20) f.x = w + 20;
+            if (f.x > w + 20) f.x = -20;
+
+            ctx.beginPath();
+            ctx.globalAlpha = f.a;
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+
+          requestAnimationFrame(step);
+        }
+
+        // pause si onglet inactif
+        document.addEventListener("visibilitychange", () => {
+          running = !document.hidden;
+          if (running) requestAnimationFrame(step);
+        });
+
+        window.addEventListener("resize", resize, { passive: true });
+
+        resize();
+        requestAnimationFrame(step);
+      })();
+    </script>
 
     <!-- JSON-LD Organization (SEO) -->
     <script type="application/ld+json">
-    {
-      "@context":"https://schema.org",
-      "@type":"WebSite",
-      "name":"Chauffagistes Pool",
-      "url":"https://chauffagistes-pool.fr",
-      "description":"Pool Bitcoin communautaire française (0% fees) valorisant la chaleur du minage.",
-      "publisher":{ "@type":"Organization", "name":"Chauffagistes Pool", "logo":{"@type":"ImageObject","url":"https://chauffagistes-pool.fr/logo.jpg"} }
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Chauffagistes Pool",
+        "url": "https://chauffagistes-pool.fr",
+        "description": "Pool Bitcoin communautaire française (0% fees) valorisant la chaleur du minage.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Chauffagistes Pool",
+          "logo": { "@type": "ImageObject", "url": "https://chauffagistes-pool.fr/logo.jpg" }
+        }
+      }
     </script>
   </body>
 </html>
