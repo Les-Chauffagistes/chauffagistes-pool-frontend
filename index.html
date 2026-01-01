@@ -515,69 +515,6 @@
         </div>
       </section>
 
-      <!-- ===== Modal: Aide / Explication ===== -->
-      <div class="modal fade" id="bestshareHelpModal" tabindex="-1" aria-labelledby="bestshareHelpTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content card-dark border-0">
-            <div class="modal-header">
-              <h5 class="modal-title" id="bestshareHelpTitle">À propos du prix "Meilleur Share du mois"</h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
-            </div>
-            <div class="modal-body modal-body-light">
-              <p>
-                Le montant affiché en sats correspond au <strong>paiement manuel</strong> envoyé à l’adresse qui a soumis
-                le meilleur share pendant le mois. Ce mini-jeu est financé par <strong>les dons de la communauté</strong>.
-              </p>
-              <p>Les gains sont <strong>définis en fonction des fonds disponibles</strong> et peuvent varier d’un mois à l’autre.</p>
-            </div>
-            <div class="modal-footer">
-              <a class="btn btn-warning" href="https://chauffagistes-pool.fr/#don">Donner pour la cagnotte</a>
-              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fermer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== Modal: Historique ===== -->
-      <div
-        class="modal fade"
-        id="bestshareHistoryModal"
-        tabindex="-1"
-        aria-labelledby="bestshareHistoryTitle"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
-          <div class="modal-content card-dark border-0">
-            <div class="modal-header">
-              <h5 class="modal-title" id="bestshareHistoryTitle">Meilleurs shares des mois précédents</h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
-            </div>
-
-            <div class="modal-body">
-              <div class="table-responsive">
-                <table class="table table-dark table-striped table-borderless align-middle">
-                  <thead>
-                    <tr>
-                      <th style="min-width: 120px">Mois</th>
-                      <th>Utilisateur / Adresse</th>
-                      <th style="min-width: 140px">Meilleure diff</th>
-                      <th style="min-width: 160px">Quand</th>
-                    </tr>
-                  </thead>
-                  <tbody id="bestshareHistoryBody">
-                    <!-- Renseigné par JS -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fermer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- BLOC STATS RAPIDES -->
       <section class="section">
         <h3 class="section-title text-center">Statut de la pool</h3>
@@ -847,6 +784,70 @@
         <a href="/mentions-legales.html" class="text-decoration-none">Mentions légales</a>
       </div>
     </footer>
+
+
+    <!-- ===== Modal: Aide / Explication ===== -->
+      <div class="modal fade" id="bestshareHelpModal" tabindex="-1" aria-labelledby="bestshareHelpTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content card-dark border-0">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bestshareHelpTitle">À propos du prix "Meilleur Share du mois"</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body modal-body-light">
+              <p>
+                Le montant affiché en sats correspond au <strong>paiement manuel</strong> envoyé à l’adresse qui a soumis
+                le meilleur share pendant le mois. Ce mini-jeu est financé par <strong>les dons de la communauté</strong>.
+              </p>
+              <p>
+                Les gains sont <strong>définis en fonction des fonds disponibles</strong> et peuvent varier d’un mois à l’autre.
+              </p>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-warning" href="https://chauffagistes-pool.fr/#don">
+                Donner pour la cagnotte
+              </a>
+              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Modal: Historique ===== -->
+      <div class="modal fade" id="bestshareHistoryModal" tabindex="-1" aria-labelledby="bestshareHistoryTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+          <div class="modal-content card-dark border-0">
+            <div class="modal-header">
+              <h5 class="modal-title" id="bestshareHistoryTitle">Meilleurs shares des mois précédents</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="table-responsive">
+                <table class="table table-dark table-striped table-borderless align-middle">
+                  <thead>
+                    <tr>
+                      <th style="min-width:120px;">Mois</th>
+                      <th>Utilisateur / Adresse</th>
+                      <th style="min-width:140px;">Meilleure diff</th>
+                      <th style="min-width:160px;">Quand</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bestshareHistoryBody">
+                    <!-- Renseigné par JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 
     <!-- Vendor JS (Bootstrap + Chart.js) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
